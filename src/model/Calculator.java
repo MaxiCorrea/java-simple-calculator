@@ -7,7 +7,7 @@ public class Calculator {
   private Double denominator;
   private Function function;
   private Double ans;
-  
+
   public Calculator() {
     display = "";
     numerator = null;
@@ -42,7 +42,7 @@ public class Calculator {
   }
 
   void executeFunction() {
-    if (numerator != null && function != null && denominator != null) {
+    if (denominator != null) {
       display = removeUnnecessaryZeros(function.execute());
       ans = Double.valueOf(display);
       function = null;
@@ -51,6 +51,7 @@ public class Calculator {
 
   void setDisplay(String text) {
     text = removeUnnecessaryZeros(text);
+    removeInfinityOrNaN();
     if (display.isEmpty()) {
       display = text;
     } else {
@@ -63,6 +64,12 @@ public class Calculator {
       s = s.substring(0, s.indexOf('.'));
     }
     return s;
+  }
+
+  void removeInfinityOrNaN() {
+    if (display.equals("NaN") || display.equals("Infinity")) {
+      display = "";
+    }
   }
 
   void ans() {
@@ -80,7 +87,8 @@ public class Calculator {
   }
 
   void delete() {
-    if (!display.isEmpty() && display.length() == 1) {
+    removeInfinityOrNaN();
+    if (display.length() == 1) {
       display = "";
     } else if (display.length() > 1) {
       display = display.substring(0, display.length() - 1);

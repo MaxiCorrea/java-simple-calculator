@@ -164,6 +164,24 @@ public class CalculatorEndToEndTest {
     driver.displayNumber("888");
   }
   
+  @Test
+  public void whenInfinityIsBeingShownDELErasesItCompletely() {
+    driver.clickInDigitButton(8);
+    driver.clickInDivideButton();
+    driver.clickInDigitButton(0);
+    driver.clickInDelButton();
+    driver.displayNumber("");
+  }
+  
+  @Test
+  public void whenNaNIsBeingShownDELErasesItCompletely() {
+    driver.clickInDigitButton(0);
+    driver.clickInDivideButton();
+    driver.clickInDigitButton(0);
+    driver.clickInDelButton();
+    driver.displayNumber("");
+  }
+  
   @After
   public void closeApp() {
     driver.dispose();
